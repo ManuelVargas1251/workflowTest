@@ -40,12 +40,16 @@ jobs:
         with:
           # Branch on which the previews will be deployed.
           preview-branch: # optional, default is gh-pages
+
           # Name of the directory containing all previews.
           umbrella-dir: # optional, default is pr-preview
+
           # Directory containing files to deploy.
           source-dir: # optional, default is .
+
           # Custom pages URL
-          custom-url: # optional, default is
+          custom-url: mnl.space # optional, default is
+
           # Determines what this action will do when it is executed. Supported values: `deploy`, `remove`, `auto` (default).
           # If set to `deploy`, will attempt to deploy the preview and overwrite any existing preview in that location.
           # If set to `remove`, will attempt to remove the preview in that location.
