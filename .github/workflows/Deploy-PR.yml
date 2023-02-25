@@ -31,7 +31,7 @@ jobs:
       # Test mupltiline text
       # - run: >- echo "Branch: ${{ github.ref }} in repository ${{ github.repository }}. 🔎 "
       - run: echo "Branch ${{ github.ref }} in repository ${{ github.repository }}. 🔎 "
-
+      - uses: actions/checkout@v3 
       - name: Deploy PR Preview
         # You may pin to the exact commit or the version.
         # uses: rossjrw/pr-preview-action@9dac5c4777c535516ebf819f93aeadac70f66488
@@ -48,7 +48,7 @@ jobs:
           source-dir: # optional, default is .
 
           # Custom pages URL
-          custom-url: mnl.space # optional, default is
+          custom-url: mnl.space/workflowTest # optional, default is
 
           # Determines what this action will do when it is executed. Supported values: `deploy`, `remove`, `auto` (default).
           # If set to `deploy`, will attempt to deploy the preview and overwrite any existing preview in that location.
