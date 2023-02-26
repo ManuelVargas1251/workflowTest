@@ -5,22 +5,17 @@ run-name: Build & Deploy 🚀 ${{ inputs.deploy_target }}
 # on: [push]
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: ["main"]
+  # push:
+  #   branches: ["main"]
   pull_request:
     branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # Explore-GitHub-Actions:
-  Build-Deploy-Actions:
-
+  deploy-preview:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -33,12 +28,28 @@ jobs:
 
       # Test mupltiline text
       # - run: >- echo "Branch: ${{ github.ref }} in repository ${{ github.repository }}. 🔎 "
+      
+      - name: Checkout 
       - run: echo "Branch ${{ github.ref }} in repository ${{ github.repository }}. 🔎 "
-      - uses: actions/checkout@v3 
-      - name: Deploy PR Preview
-        # You may pin to the exact commit or the version.
-        # uses: rossjrw/pr-preview-action@9dac5c4777c535516ebf819f93aeadac70f66488
+      - uses: actions/checkout@v3
 
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+
+      - name: Deploy PR Preview
         uses: rossjrw/pr-preview-action@v1.3.0
         with:
           # Branch on which the previews will be deployed.
